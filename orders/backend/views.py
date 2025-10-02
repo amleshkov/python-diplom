@@ -46,7 +46,7 @@ class RegisterAccount(APIView):
 
     # Регистрация методом POST
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Process a POST request and create a new user.
 
@@ -103,7 +103,7 @@ class ConfirmAccount(APIView):
     """
 
     # Регистрация методом POST
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Подтверждает почтовый адрес пользователя.
 
@@ -146,7 +146,7 @@ class AccountDetails(APIView):
     """
 
     # получить данные
-    def get(self, request: Request, *args, **kwargs):
+    def get(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Retrieve the details of the authenticated user.
 
@@ -162,10 +162,10 @@ class AccountDetails(APIView):
             )
 
         serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
     # Редактирование методом POST
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Update the account details of the authenticated user.
 
@@ -212,7 +212,7 @@ class LoginAccount(APIView):
     """
 
     # Авторизация методом POST
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Authenticate a user.
 
@@ -271,7 +271,9 @@ class ProductInfoView(APIView):
     - None
     """
 
-    def get(self, request: Request, *args, **kwargs):
+    def get(
+        self, request: Request, *args, **kwargs
+    ) -> Response:  # TODO: Проверить тип Response
         """
         Retrieve the product information based on the specified filters.
 
@@ -291,7 +293,7 @@ class ProductInfoView(APIView):
         if category_id:
             query = query & Q(product__category_id=category_id)
 
-        # фильтруем и отбрасываем дуликаты
+        # фильтруем и отбрасываем дубликаты
         queryset = (
             ProductInfo.objects.filter(query)
             .select_related("shop", "product__category")
@@ -319,7 +321,9 @@ class BasketView(APIView):
     """
 
     # получить корзину
-    def get(self, request, *args, **kwargs):
+    def get(
+        self, request: Request, *args, **kwargs
+    ) -> JsonResponse:  # TODO: Проверить тип Response
         """
         Retrieve the items in the user's basket.
 
@@ -349,10 +353,10 @@ class BasketView(APIView):
         )
 
         serializer = OrderSerializer(basket, many=True)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
     # редактировать корзину
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Add an items to the user's basket.
 
@@ -404,7 +408,7 @@ class BasketView(APIView):
         )
 
     # удалить товары из корзины
-    def delete(self, request, *args, **kwargs):
+    def delete(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Remove  items from the user's basket.
 
@@ -440,7 +444,7 @@ class BasketView(APIView):
         )
 
     # добавить позиции в корзину
-    def put(self, request, *args, **kwargs):
+    def put(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Update the items in the user's basket.
 
@@ -496,7 +500,7 @@ class PartnerUpdate(APIView):
     - None
     """
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Update the partner price list information.
 
@@ -579,7 +583,7 @@ class PartnerState(APIView):
     """
 
     # получить текущий статус
-    def get(self, request, *args, **kwargs):
+    def get(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Retrieve the state of the partner.
 
@@ -601,10 +605,10 @@ class PartnerState(APIView):
 
         shop = request.user.shop
         serializer = ShopSerializer(shop)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
     # изменить текущий статус
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Update the state of a partner.
 
@@ -648,7 +652,7 @@ class PartnerOrders(APIView):
     - None
     """
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Retrieve the orders associated with the authenticated partner.
 
@@ -688,7 +692,7 @@ class PartnerOrders(APIView):
         )
 
         serializer = OrderSerializer(order, many=True)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
 
 class ContactView(APIView):
@@ -706,7 +710,7 @@ class ContactView(APIView):
     """
 
     # получить мои контакты
-    def get(self, request, *args, **kwargs):
+    def get(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Retrieve the contact information of the authenticated user.
 
@@ -722,10 +726,10 @@ class ContactView(APIView):
             )
         contact = Contact.objects.filter(user_id=request.user.id)
         serializer = ContactSerializer(contact, many=True)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
     # добавить новый контакт
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Create a new contact for the authenticated user.
 
@@ -756,7 +760,7 @@ class ContactView(APIView):
         )
 
     # удалить контакт
-    def delete(self, request, *args, **kwargs):
+    def delete(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Delete the contact of the authenticated user.
 
@@ -789,7 +793,7 @@ class ContactView(APIView):
         )
 
     # редактировать контакт
-    def put(self, request, *args, **kwargs):
+    def put(self, request: Request, *args, **kwargs) -> JsonResponse:
         if not request.user.is_authenticated:
             """
                    Update the contact information of the authenticated user.
@@ -841,7 +845,7 @@ class OrderView(APIView):
     """
 
     # получить мои заказы
-    def get(self, request, *args, **kwargs):
+    def get(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Retrieve the details of user orders.
 
@@ -873,10 +877,10 @@ class OrderView(APIView):
         )
 
         serializer = OrderSerializer(order, many=True)
-        return Response(serializer.data)
+        return JsonResponse(serializer.data)
 
     # разместить заказ из корзины
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs) -> JsonResponse:
         """
         Put an order and send a notification.
 
