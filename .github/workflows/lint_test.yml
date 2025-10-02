@@ -38,7 +38,7 @@ jobs:
       - name: Run tests
         run: |
           cd orders
-          poetry run coverage run -m pytest -v -s --rootdir=orders/tests
+          poetry run coverage run -m pytest -v -s --rootdir=tests
       - name: Generate coverage report
         run: |
           poetry run coverage report -m
