@@ -37,6 +37,8 @@ jobs:
         continue-on-error: true
       - name: Change directory to project root
         run: cd orders
+      - name: Print workdir
+        run: pwd
       - name: Run tests
         run: |
           export PYTHONPATH=$PWD && poetry run coverage run -m pytest -v -s tests
