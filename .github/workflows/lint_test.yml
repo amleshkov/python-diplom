@@ -40,7 +40,7 @@ jobs:
       - name: Change directory to project root
         run: cd orders
       - name: Print workdir
-        run: pwd
+        run: ls
       - name: Run tests
         run: |
           export PYTHONPATH=$PWD && poetry run coverage run -m pytest -v -s tests
