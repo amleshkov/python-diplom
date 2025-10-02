@@ -35,6 +35,8 @@ jobs:
         run: |
           poetry run ruff check --output-format=github .
         continue-on-error: true
+      - name: Print workdir
+        run: pwd
       - name: Change directory to project root
         run: cd orders
       - name: Print workdir
