@@ -15,7 +15,7 @@ from rest_framework.views import APIView
 from ujson import loads as load_json
 from yaml import load as load_yaml, Loader
 
-from models import (
+from .models import (
     Shop,
     Category,
     Product,
@@ -27,7 +27,7 @@ from models import (
     Contact,
     ConfirmEmailToken,
 )
-from serializers import (
+from .serializers import (
     UserSerializer,
     CategorySerializer,
     ShopSerializer,
@@ -36,7 +36,7 @@ from serializers import (
     OrderSerializer,
     ContactSerializer,
 )
-from signals import new_user_registered, new_order
+from .signals import new_user_registered, new_order
 
 
 class RegisterAccount(APIView):

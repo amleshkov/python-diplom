@@ -4,7 +4,7 @@ from django_rest_passwordreset.views import (
     reset_password_confirm,
 )
 
-from views import (
+from .views import (
     PartnerUpdate,
     RegisterAccount,
     LoginAccount,
