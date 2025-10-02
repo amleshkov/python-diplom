@@ -33,11 +33,11 @@ jobs:
         run: poetry install --with test
       - name: Lint with ruff
         run: |
-          ruff check --output-format=github .
+          poetry run ruff check --output-format=github .
         continue-on-error: true
       - name: Run tests
         run: |
-          coverage run -m pytest -v -s
+          poetry run coverage run -m pytest -v -s
       - name: Generate coverage report
         run: |
-          coverage report -m
+          poetry run coverage report -m
