@@ -11,6 +11,7 @@ from requests import get
 from rest_framework.authtoken.models import Token
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED
 from rest_framework.views import APIView
 from ujson import loads as load_json
 from yaml import load as load_yaml, Loader
@@ -75,7 +76,8 @@ class RegisterAccount(APIView):
                 for item in password_error:
                     error_array.append(item)
                 return JsonResponse(
-                    {"Status": False, "Errors": {"password": error_array}}
+                    {"Status": False, "Errors": {"password": error_array}},
+                    status=HTTP_400_BAD_REQUEST,
                 )
             else:
                 # проверяем данные для уникальности имени пользователя
@@ -86,14 +88,16 @@ class RegisterAccount(APIView):
                     user = user_serializer.save()
                     user.set_password(request.data["password"])
                     user.save()
-                    return JsonResponse({"Status": True})
+                    return JsonResponse({"Status": True}, status=HTTP_201_CREATED)
                 else:
                     return JsonResponse(
-                        {"Status": False, "Errors": user_serializer.errors}
+                        {"Status": False, "Errors": user_serializer.errors},
+                        status=HTTP_400_BAD_REQUEST,
                     )
 
         return JsonResponse(
-            {"Status": False, "Errors": "Не указаны все необходимые аргументы"}
+            {"Status": False, "Errors": "Не указаны все необходимые аргументы"},
+            status=HTTP_400_BAD_REQUEST,
         )
 
 
