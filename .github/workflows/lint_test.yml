@@ -21,7 +21,7 @@ jobs:
       - name: install poetry
         run: |
           pip install poetry==2.2.1 ruff==0.13.2
-          poetry install
+          poetry install --with test
       - name: Lint with ruff
         run: |
           ruff --format=github --target-version=py313 .
