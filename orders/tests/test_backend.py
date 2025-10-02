@@ -1,6 +1,6 @@
 import pytest
 
-from orders.tests.conftest import USER_REGISTER_URL
+from .conftest import USER_REGISTER_URL
 
 
 @pytest.mark.django_db
