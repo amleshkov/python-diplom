@@ -24,7 +24,7 @@ jobs:
           poetry install --with test
       - name: Lint with ruff
         run: |
-          ruff --format=github --target-version=py313 .
+          ruff check --output-format=github .
         continue-on-error: true
       - name: Run tests
         run: |
