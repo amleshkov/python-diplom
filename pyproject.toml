@@ -31,3 +31,6 @@ test = [
 ]
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "orders.settings"
+pythonpath = [
+  "."
+]
