@@ -37,6 +37,7 @@ jobs:
         continue-on-error: true
       - name: Run tests
         run: |
+          cd orders
           poetry run coverage run -m pytest -v -s
       - name: Generate coverage report
         run: |
