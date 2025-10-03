@@ -51,6 +51,13 @@ jobs:
           poetry run ruff check --output-format=github .
         continue-on-error: true
       - name: Run tests
+        env:
+          DB_ENGINE: "django.db.backends.postgresql"
+          DB_NAME: "orders"
+          DB_USER: "postgres"
+          DB_PASSWORD: "postgres"
+          DB_HOST: "localhost"
+          DB_PORT: "5432"
         run: |
           cd orders
           pwd
