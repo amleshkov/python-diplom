@@ -11,21 +11,6 @@ jobs:
       matrix:
         python-version: [ "3.13" ]
 
-    services:
-      postgres:
-        image: postgres:17
-        env:
-          POSTGRES_DB: orders
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -52,12 +37,8 @@ jobs:
         continue-on-error: true
       - name: Run tests
         env:
-          DB_ENGINE: "django.db.backends.postgresql"
-          DB_NAME: "orders"
-          DB_USER: "postgres"
-          DB_PASSWORD: "postgres"
-          DB_HOST: "localhost"
-          DB_PORT: "5432"
+          DB_ENGINE: "django.db.backends.sqlite3"
+          DB_NAME: ":memory:"
         run: |
           cd orders
           pwd
