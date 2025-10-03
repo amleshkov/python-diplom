@@ -35,9 +35,12 @@ jobs:
         run: |
           poetry run ruff check --output-format=github .
         continue-on-error: true
+      - name: Change directory
+        run: |
+          cd orders
       - name: Run tests
         run: |
-          cd orders && pwd && export PYTHONPATH=$PWD && poetry run coverage run -m pytest -v -s
+          poetry run coverage run -m pytest -v -s
       - name: Generate coverage report
         run: |
           poetry run coverage report -m
