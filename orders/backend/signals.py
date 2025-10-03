@@ -73,7 +73,7 @@ def new_order_signal(user_id, **kwargs):
 
     msg = EmailMultiAlternatives(
         # title:
-        f"Обновление статуса заказа",
+        "Обновление статуса заказа",
         # message:
         "Заказ сформирован",
         # from:
