@@ -45,4 +45,5 @@ jobs:
           poetry run coverage run -m pytest -v -s
       - name: Generate coverage report
         run: |
+          cd orders
           poetry run coverage report -m
