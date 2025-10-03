@@ -44,6 +44,7 @@ jobs:
           pwd
           poetry run coverage run -m pytest -v -s
       - name: Generate coverage report
+        env:
+          COVERAGE_FILE: "orders/.coverage"
         run: |
-          cd orders
           poetry run coverage report -m
